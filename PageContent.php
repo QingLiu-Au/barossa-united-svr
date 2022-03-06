@@ -1,6 +1,7 @@
 <?php
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Headers: *");
+    include $_SERVER['DOCUMENT_ROOT'].dirname($_SERVER['PHP_SELF']).'/conn/Conn.php';
     include $_SERVER['DOCUMENT_ROOT'].dirname($_SERVER['PHP_SELF']).'/conn/dbHelper.php';
     $inputJSON = file_get_contents('php://input');
     $arr = json_decode($inputJSON, true); //convert JSON into array
@@ -16,14 +17,16 @@
         if ($key == 'pageContent') $pageContent = $value;
     }
 
-    $contents = GetPageByID($routeID);
+    $contents = GetPageByID($conn, $routeID);
 
     if (count($contents) == 0) {
-        $result = insertNewPage($routeID, $page, $pageIndex, $pageContent);
+        echo "insert record";
+        $result = insertNewPage($conn, $routeID, $page, $pageIndex, $pageContent);
         echo $result;
     } 
     else { 
-
+        echo "update record";
     }
     echo json_encode($contents);
+    mysqli_close($conn);
 ?>
