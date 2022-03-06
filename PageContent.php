@@ -18,15 +18,13 @@
     }
 
     $contents = GetPageByID($conn, $routeID);
-
+    
     if (count($contents) == 0) {
-        echo "insert record";
-        $result = insertNewPage($conn, $routeID, $page, $pageIndex, $pageContent);
-        echo $result;
+        $result = insertNewPage($conn, $routeID, $page, $pageIndex, str_replace("'", "\'", $pageContent));
     } 
     else { 
-        echo "update record";
+        $result = updatePage($conn, $contents[0]->getContentID(), $routeID, $page, $contents[0]->getPageIndex(), str_replace("'", "\'", $pageContent));
     }
-    echo json_encode($contents);
+    echo json_encode($result);
     mysqli_close($conn);
 ?>

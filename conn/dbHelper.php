@@ -76,7 +76,8 @@
 
     function updatePage($conn, $contentID, $routeID, $page, $pageIndex, $pageContent) { 
         // require_once(__DIR__ . '/Conn.php');
-        $q = "UPDATE Content SET RouteID = $routeID, Page = '$page', PageIndex = $pageIndex, PageContent = '$pageContent' WHERE ContentID = $contentID";
+        $q = "UPDATE Content SET fkRouteID = $routeID, Page = '$page', PageIndex = $pageIndex, PageContent = '$pageContent' WHERE ContentID = $contentID";
+        echo $q;
         if (mysqli_query($conn, $q)) {
             // mysqli_close($conn);
             return true;
