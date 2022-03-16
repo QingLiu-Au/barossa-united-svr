@@ -57,6 +57,20 @@ INSERT INTO `content` (`ContentID`, `fkRouteID`, `Page`, `PageIndex`, `PageConte
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `filetype`
+--
+
+CREATE TABLE `filetype` (
+  `FileTypeID` int(11) NOT NULL,
+  `FileName` varchar(100) NOT NULL,
+  `FilePath` varchar(200) NOT NULL,
+  `Type` varchar(20) NOT NULL,
+  `Deleted` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `route`
 --
 
@@ -84,6 +98,35 @@ INSERT INTO `route` (`RouteID`, `RouteName`, `RoutePath`, `Public`, `Deleted`) V
 (10, 'Admin Login', '/admin-portal', 0, 0),
 (11, 'Admin Page', '/admin-page', 0, 0);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `routefile`
+--
+
+CREATE TABLE `routefile` (
+  `PageFileID` int(11) NOT NULL,
+  `fkFileID` int(11) NOT NULL,
+  `fkRouteID` int(11) NOT NULL,
+  `RouteFileName` varchar(30) NOT NULL,
+  `Deleted` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `UserID` int(11) NOT NULL,
+  `FirstName` varchar(50) NOT NULL,
+  `LastName` varchar(50) NOT NULL,
+  `Password` text NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  `Deleted` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Indexes for dumped tables
 --
@@ -95,10 +138,30 @@ ALTER TABLE `content`
   ADD PRIMARY KEY (`ContentID`);
 
 --
+-- Indexes for table `filetype`
+--
+ALTER TABLE `filetype`
+  ADD PRIMARY KEY (`FileTypeID`);
+
+--
 -- Indexes for table `route`
 --
 ALTER TABLE `route`
   ADD PRIMARY KEY (`RouteID`);
+
+--
+-- Indexes for table `routefile`
+--
+ALTER TABLE `routefile`
+  ADD PRIMARY KEY (`PageFileID`),
+  ADD KEY `fk_routeFile_route` (`fkRouteID`),
+  ADD KEY `fk_routeFile_file` (`fkFileID`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`UserID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -111,10 +174,39 @@ ALTER TABLE `content`
   MODIFY `ContentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
+-- AUTO_INCREMENT for table `filetype`
+--
+ALTER TABLE `filetype`
+  MODIFY `FileTypeID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `route`
 --
 ALTER TABLE `route`
   MODIFY `RouteID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `routefile`
+--
+ALTER TABLE `routefile`
+  MODIFY `PageFileID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `routefile`
+--
+ALTER TABLE `routefile`
+  ADD CONSTRAINT `fk_routeFile_file` FOREIGN KEY (`fkFileID`) REFERENCES `filetype` (`FileTypeID`),
+  ADD CONSTRAINT `fk_routeFile_route` FOREIGN KEY (`fkRouteID`) REFERENCES `route` (`RouteID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

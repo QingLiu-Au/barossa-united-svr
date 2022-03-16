@@ -107,13 +107,10 @@
     }
 
     function updatePage($conn, $contentID, $routeID, $page, $pageIndex, $pageContent) { 
-        // require_once(__DIR__ . '/Conn.php');
         $q = "UPDATE Content SET fkRouteID = $routeID, Page = '$page', PageIndex = $pageIndex, PageContent = '$pageContent' WHERE ContentID = $contentID";
         if (mysqli_query($conn, $q)) {
-            // mysqli_close($conn);
             return true;
         }
-        // mysqli_close($conn);
         return false;
     }
 
@@ -126,5 +123,19 @@
     }
 
     // admin login section
+    function AdminLogin($conn, $email, $password) {
+        $q = "SELECT * FROM user WHERE Email = '$email' AND Password = '$password'";
+        $users = array();
+        if ($result = mysqli_query($conn, $q)) {
+
+            while ($obj = mysqli_fetch_object($result)) {
+                array_push($users, 
+                new User($obj->UserID, $obj->FirstName, $obj->LastName, $obj->Password, $obj->Email));
+
+            }
+            mysqli_free_result($result);
+        }
+        return $users;
+    }
 
 ?>
