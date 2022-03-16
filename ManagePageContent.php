@@ -1,8 +1,5 @@
 <?php
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: *");
-    include $_SERVER['DOCUMENT_ROOT'].dirname($_SERVER['PHP_SELF']).'/conn/Conn.php';
-    include $_SERVER['DOCUMENT_ROOT'].dirname($_SERVER['PHP_SELF']).'/conn/dbHelper.php';
+    include 'Config.php';
     $inputJSON = file_get_contents('php://input');
     $arr = json_decode($inputJSON, true); //convert JSON into array
     $routeID = 0;
