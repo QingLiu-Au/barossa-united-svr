@@ -4,12 +4,14 @@
         var $RouteName;
         var $RoutePath;
         var $Public;
+        var $Deleted;
 
         function __construct($routeID, $routeName, $routePath, $public) {
             $this->RouteID = $routeID;
             $this->RouteName = $routeName;
             $this->RoutePath = $routePath;
             $this->Public = $public;
+            $this->Deleted = false;
         }
 
         // getters
@@ -21,6 +23,9 @@
         }
         function getPublic() {
             return $this->Public;
+        }
+        function getDeleted() {
+            return $this->Deleted;
         }
     }
 
