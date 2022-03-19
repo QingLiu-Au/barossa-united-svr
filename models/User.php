@@ -7,7 +7,7 @@
         var $Email;
         var $Deleted;
 
-        function __construct($userID, $FirstName, $LastName, $password, $email) {
+        function __construct($userID, $firstName, $lastName, $password, $email) {
             $this->UserID = $userID;
             $this->FirstName = $firstName;
             $this->LastName = $lastName;

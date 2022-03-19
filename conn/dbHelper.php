@@ -122,6 +122,47 @@
         return false;
     }
 
+    // File type 
+    function InsertFileType($conn, $fileName, $filePath, $pageName, $identifier) { 
+        $q = "INSERT INTO fileType (FileName, FilePath, PageName, Identifier, Deleted) VALUES ('$fileName', '$filePath', '$pageName', '$identifier', 0)";
+        if (mysqli_query($conn, $q)) { 
+            return true; 
+        }
+        return false;
+    }
+
+    function GetPageMediaFilesByPage($conn, $pageName) { 
+        $q = "SELECT * FROM fileType WHERE PageName = '$pageName'";
+        $mediaFiles = array();
+        if ($result = mysqli_query($conn, $q)) {
+
+            while ($obj = mysqli_fetch_object($result)) {
+
+                array_push($mediaFiles, 
+                new FileType($obj->FileID, $obj->FileName, $obj->FilePath, $obj->PageName, $obj->Identifier));
+
+            }
+            mysqli_free_result($result);
+        }
+        return $mediaFiles;
+    }
+
+    function GetPageMediaFiles($conn) { 
+        $q = "SELECT * FROM fileType";
+        $mediaFiles = array();
+        if ($result = mysqli_query($conn, $q)) {
+
+            while ($obj = mysqli_fetch_object($result)) {
+
+                array_push($mediaFiles, 
+                new FileType($obj->FileTypeID, $obj->FileName, $obj->FilePath, $obj->PageName, $obj->Identifier));
+
+            }
+            mysqli_free_result($result);
+        }
+        return $mediaFiles;
+    }
+
     // admin login section
     function AdminLogin($conn, $email, $password) {
         $q = "SELECT * FROM user WHERE Email = '$email' AND Password = '$password'";

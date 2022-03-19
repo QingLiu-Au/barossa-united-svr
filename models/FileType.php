@@ -3,14 +3,16 @@
         var $FileID;
         var $FileName;
         var $FilePath;
-        var $Type;
+        var $PageName;
+        var $Identifier;
         var $Deleted;
 
-        function __construct($fileID, $fileName, $filePath, $type) {
+        function __construct($fileID, $fileName, $filePath, $pageName, $identifier) {
             $this->FileID = $fileID;
             $this->FileName = $fileName;
             $this->FilePath = $filePath;
-            $this->Type = $type;
+            $this->PageName = $pageName;
+            $this->Identifier = $identifier;
             $this->Deleted = 0;
         }
 
@@ -24,8 +26,11 @@
         function getFilePath(){
             return $this->FilePath;
         }
-        function getType() {
-            return $this->Type;
+        function getPageName() {
+            return $this->PageName;
+        }
+        function getIdentifier() {
+            return $this->Identifier;
         }
         function getDeleted() {
             return $this->Deleted;

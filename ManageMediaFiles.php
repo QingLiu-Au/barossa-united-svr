@@ -3,7 +3,6 @@ include 'Config.php';
 include 'utils.php';
 $target_dir = "uploads/";
 $target_file = $target_dir . basename(getRandomString(5).$_FILES["photos"]["name"]);
-echo $target_file;
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
@@ -36,8 +35,9 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk != 0) {
   if (move_uploaded_file($_FILES["photos"]["tmp_name"], $target_file)) {
+    InsertFileType($conn, $_FILES["photos"]["name"], $target_file, null, null);
     header("HTTP/1.1 200 OK");
-    echo "The file ". htmlspecialchars( basename( $_FILES["photos"]["name"])). " has been uploaded.";
+    echo json_encode($target_file);
   } else {
     header("HTTP/1.1 500 Internal Server Error");
     echo "Sorry, there was an error uploading your file.";
