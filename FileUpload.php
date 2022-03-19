@@ -1,8 +1,9 @@
 <?php
 include 'Config.php';
-
+include 'utils.php';
 $target_dir = "uploads/";
-$target_file = $target_dir . basename($_FILES["photos"]["name"]);
+$target_file = $target_dir . basename(getRandomString(5).$_FILES["photos"]["name"]);
+echo $target_file;
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
@@ -18,12 +19,6 @@ if(isset($_POST["submit"])) {
   }
 }
 
-// Check if file already exists
-if (file_exists($target_file)) {
-  echo "Sorry, file already exists.";
-  $uploadOk = 0;
-}
-
 // Check file size
 // if ($_FILES["photos"] > 500000) {
 //   echo "Sorry, your file is too large.";
@@ -33,19 +28,18 @@ if (file_exists($target_file)) {
 // Allow certain file formats
 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 && $imageFileType != "gif" ) {
+  header("HTTP/1.1 500 Image Only");
   echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
   $uploadOk = 0;
 }
 
 // Check if $uploadOk is set to 0 by an error
-if ($uploadOk == 0) {
-  echo "Sorry, your file was not uploaded.";
-// if everything is ok, try to upload file
-} else {
-
+if ($uploadOk != 0) {
   if (move_uploaded_file($_FILES["photos"]["tmp_name"], $target_file)) {
+    header("HTTP/1.1 200 OK");
     echo "The file ". htmlspecialchars( basename( $_FILES["photos"]["name"])). " has been uploaded.";
   } else {
+    header("HTTP/1.1 500 Internal Server Error");
     echo "Sorry, there was an error uploading your file.";
   }
 }
