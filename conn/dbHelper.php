@@ -123,6 +123,13 @@
     }
 
     // File type 
+    function UpdateMediaType($conn, $fileName, $filePath, $pageName, $identifier, $deleted) {
+        $q = "UPDATE fileType SET FileName = '$fileName', FilePath = '$filePath', PageName = '$pageName', Identifier = '$identifier', Deleted = $deleted WHERE FilePath = '$filePath'";
+        if (mysqli_query($conn, $q)) {
+            return true;
+        }
+        return false;
+    }
     function InsertFileType($conn, $fileName, $filePath, $pageName, $identifier) { 
         $q = "INSERT INTO fileType (FileName, FilePath, PageName, Identifier, Deleted) VALUES ('$fileName', '$filePath', '$pageName', '$identifier', 0)";
         if (mysqli_query($conn, $q)) { 
@@ -139,7 +146,7 @@
             while ($obj = mysqli_fetch_object($result)) {
 
                 array_push($mediaFiles, 
-                new FileType($obj->FileID, $obj->FileName, $obj->FilePath, $obj->PageName, $obj->Identifier));
+                new FileType($obj->FileTypeID, $obj->FileName, $obj->FilePath, $obj->PageName, $obj->Identifier));
 
             }
             mysqli_free_result($result);
