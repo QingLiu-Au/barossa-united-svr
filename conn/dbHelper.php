@@ -13,7 +13,7 @@
             while ($obj = mysqli_fetch_object($result)) {
 
                 array_push($routes, 
-                new Route($obj->RouteID, $obj->RouteName, $obj->RoutePath, $obj->Public));
+                new Route($obj->RouteID, $obj->RouteName, $obj->RoutePath, $obj->Public, $obj->Hidden));
 
             }
             mysqli_free_result($result);
@@ -30,7 +30,7 @@
             while ($obj = mysqli_fetch_object($result)) {
 
                 array_push($routes, 
-                new Route($obj->RouteID, $obj->RouteName, $obj->RoutePath, $obj->Public));
+                new Route($obj->RouteID, $obj->RouteName, $obj->RoutePath, $obj->Public, $obj->Hidden));
 
             }
             mysqli_free_result($result);
@@ -39,10 +39,9 @@
         return $routes;
     }
 
-    function InsertRoute($conn, $routeName, $routePath, $public) {
-        $q = "INSERT INTO route (RouteName, RoutePath, Public) VALUES ($routeName, $routePath, $public)";
+    function InsertRoute($conn, $routeName, $routePath, $public, $hidden) {
+        $q = "INSERT INTO route (RouteName, RoutePath, Public, Hidden, Deleted) VALUES ($routeName, $routePath, $public, $hidden, 0)";
         if (mysqli_query($conn, $q)) { 
-            echo "record inserted";
             return true; 
         }
         
