@@ -98,7 +98,7 @@
     }
 
     function insertNewPage($conn, $routeID, $page, $pageIndex, $pageContent) {
-        $q = "INSERT INTO Content (fkRouteID, Page, PageIndex, PageContent) VALUE ($routeID, '$page', $pageIndex, '$pageContent')";
+        $q = "INSERT INTO content (fkRouteID, Page, PageIndex, PageContent) VALUE ($routeID, '$page', $pageIndex, '$pageContent')";
         if (mysqli_query($conn, $q)) { 
             return true; 
         }
@@ -106,7 +106,7 @@
     }
 
     function updatePage($conn, $contentID, $routeID, $page, $pageIndex, $pageContent) { 
-        $q = "UPDATE Content SET fkRouteID = $routeID, Page = '$page', PageIndex = $pageIndex, PageContent = '$pageContent' WHERE ContentID = $contentID";
+        $q = "UPDATE content SET fkRouteID = $routeID, Page = '$page', PageIndex = $pageIndex, PageContent = '$pageContent' WHERE ContentID = $contentID";
         if (mysqli_query($conn, $q)) {
             return true;
         }
