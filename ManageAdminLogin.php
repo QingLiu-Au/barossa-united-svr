@@ -1,15 +1,15 @@
 <?php
-    include 'Config.php';
+    include "Config.php";
     // $inputJSON = file_get_contents('php://input');
     // echo $inputJSON;
     $arr = json_decode(file_get_contents("php://input"), true);
     $isLogin = false;
-    $email = '';
-    $password = '';
+    $email = "";
+    $password = "";
 
     // Loop through the associative array
     foreach($arr as $key=>$value){
-        echo "key => $key, value => $value";
+        // echo "key => $key, value => $value";
         if ($key == "isLogin") $isLogin = $value;
         if ($key == "email") $email = $value;
         if ($key == "password") $password = $value;
