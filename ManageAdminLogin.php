@@ -8,14 +8,14 @@
 
     // Loop through the associative array
     foreach($arr as $key=>$value){
-        echo "key => $key, value => $value";
+        //echo "key => $key, value => $value";
         if ($key == 'isLogin') $isLogin = $value;
         if ($key == 'email') $email = $value;
         if ($key == 'password') $password = $value;
     }
 
     session_start();
-    if ($isLogin) {
+    if ($isLogin == 1) {
         $_SESSION['email'] = $email;
         $_SESSION['password'] = $password;
         echo true;
