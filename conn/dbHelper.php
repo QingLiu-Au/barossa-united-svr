@@ -6,7 +6,7 @@
 
     // route section
     function GetRoute($conn) {
-        $q = "SELECT * FROM Route Where Deleted = 0";
+        $q = "SELECT * FROM route Where Deleted = 0";
         $routes = array();
         if ($result = mysqli_query($conn, $q)) {
 
@@ -123,14 +123,14 @@
 
     // File type 
     function UpdateMediaType($conn, $fileName, $filePath, $pageName, $identifier, $deleted) {
-        $q = "UPDATE fileType SET FileName = '$fileName', FilePath = '$filePath', PageName = '$pageName', Identifier = '$identifier', Deleted = $deleted WHERE FilePath = '$filePath'";
+        $q = "UPDATE filetype SET FileName = '$fileName', FilePath = '$filePath', PageName = '$pageName', Identifier = '$identifier', Deleted = $deleted WHERE FilePath = '$filePath'";
         if (mysqli_query($conn, $q)) {
             return true;
         }
         return false;
     }
     function InsertFileType($conn, $fileName, $filePath, $pageName, $identifier) { 
-        $q = "INSERT INTO fileType (FileName, FilePath, PageName, Identifier, Deleted) VALUES ('$fileName', '$filePath', '$pageName', '$identifier', 0)";
+        $q = "INSERT INTO filetype (FileName, FilePath, PageName, Identifier, Deleted) VALUES ('$fileName', '$filePath', '$pageName', '$identifier', 0)";
         if (mysqli_query($conn, $q)) { 
             return true; 
         }
@@ -138,7 +138,7 @@
     }
 
     function GetPageMediaFilesByPage($conn, $pageName) { 
-        $q = "SELECT * FROM fileType WHERE PageName = '$pageName'";
+        $q = "SELECT * FROM filetype WHERE PageName = '$pageName'";
         $mediaFiles = array();
         if ($result = mysqli_query($conn, $q)) {
 
@@ -154,7 +154,7 @@
     }
 
     function GetPageMediaFiles($conn) { 
-        $q = "SELECT * FROM fileType";
+        $q = "SELECT * FROM filetype";
         $mediaFiles = array();
         if ($result = mysqli_query($conn, $q)) {
 
