@@ -1,6 +1,7 @@
 <?php
     include 'Config.php';
     $inputJSON = file_get_contents('php://input');
+    echo $inputJSON;
     $arr = json_decode($inputJSON, true); //convert JSON into array
     $isLogin = false;
     $email = '';
