@@ -1,6 +1,6 @@
 <?php
     include 'Config.php';
-
+    echo "aksd";
     $inputJSON = file_get_contents('php://input');
     $arr = json_decode($inputJSON, true); //convert JSON into array
     $isLogin = false;
