@@ -8,6 +8,7 @@
 
     // Loop through the associative array
     foreach($arr as $key=>$value){
+        echo "key => $key, value => $value";
         if ($key == 'isLogin') $isLogin = $value;
         if ($key == 'email') $email = $value;
         if ($key == 'password') $password = $value;
