@@ -107,6 +107,7 @@
 
     function updatePage($conn, $contentID, $routeID, $page, $pageIndex, $pageContent) { 
         $q = "UPDATE content SET fkRouteID = $routeID, Page = '$page', PageIndex = $pageIndex, PageContent = '$pageContent' WHERE ContentID = $contentID";
+        echo $q;
         if (mysqli_query($conn, $q)) {
             return true;
         }
