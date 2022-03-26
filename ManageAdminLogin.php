@@ -2,7 +2,7 @@
     include 'Config.php';
     // $inputJSON = file_get_contents('php://input');
     // echo $inputJSON;
-    $arr = json_decode(file_get_contents('php://input'), true);
+    $arr = json_decode(file_get_contents("php://input"), true);
     $isLogin = false;
     $email = '';
     $password = '';
