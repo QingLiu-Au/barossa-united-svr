@@ -48,8 +48,8 @@
         return false;
     }
 
-    function UpdateRoute($conn, $routeID, $routeName, $routePath, $public) {
-        $q = "UPDATE route SET RouteName = '$routeName', RoutePath = '$routePath', Public = $public WHERE RouteID = $routeID";
+    function UpdateRoute($conn, $routeID, $routeName, $routePath, $public, $hidden) {
+        $q = "UPDATE route SET RouteName = '$routeName', RoutePath = '$routePath', Public = $public, Hidden = $hidden WHERE RouteID = $routeID";
         if (mysqli_query($conn, $q)) {
             return true;
         }
