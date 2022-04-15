@@ -186,4 +186,27 @@
         return $users;
     }
 
+    function GetAllUsers($conn) {
+        $q = "SELECT * FROM user";
+        $users = array();
+        if ($result = mysqli_query($conn, $q)) {
+
+            while ($obj = mysqli_fetch_object($result)) {
+                array_push($users, 
+                new User($obj->UserID, $obj->FirstName, $obj->LastName, "", $obj->Email));
+
+            }
+            mysqli_free_result($result);
+        }
+        return $users;
+    }
+
+    function UpdateUser($conn, $userID, $firstName, $lastName, $email, $password) { 
+        $q = "UPDATE user SET FirstName = '$firstName', LastName = '$lastName', Email = '$email', Password = '$password' WHERE UserID = $userID";
+        if (mysqli_query($conn, $q)) {
+            return true;
+        }
+        return false;
+    }
+
 ?>

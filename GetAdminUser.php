@@ -16,18 +16,17 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
-    if ($isLogin == 1) {
-        $_SESSION["email"] = $email;
-        $_SESSION["password"] = $password;
-        echo true;
-    }
-    else {
-        if ($_SESSION["email"] == $email && $_SESSION["password"] == $password) {
-            session_unset();
-            session_destroy();
-            echo true;
+    if (isset($_SESSION['email']) && isset($_SESSION['password'])) {
+        if ($_SESSION["email"] = $email && $_SESSION["password"] = $password) {
+            $users = GetAllUsers($conn);
+            echo json_encode($users);
+        } else {
+            echo "[]";
         }
-        echo false;
+    } else {
+        echo "[]";
     }
-    session_write_close();
+    
+    
+
 ?>
